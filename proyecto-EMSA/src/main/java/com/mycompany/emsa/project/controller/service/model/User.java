@@ -1,6 +1,6 @@
 package com.mycompany.emsa.project.controller.service.model;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
