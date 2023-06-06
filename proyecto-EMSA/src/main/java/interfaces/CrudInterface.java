@@ -1,14 +1,15 @@
 package interfaces;
 
-import model.Event;
+
 
 import java.util.List;
 
 public interface CrudInterface<T> {
 
-     void create(T object);
+     void executeCreate(T object);
 
-    public List<?> read();
-    public void update(T object);
-    public void delete(int id);
+    public List<?> executeReadAll();
+    public void executeUpdate(T object);
+    public void executeDelete(int id);
+    public void executeRead(int id);
 }

@@ -4,21 +4,57 @@
  */
 package views;
 
+
+import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import model.User;
 import service.UserServiceManagement;
+import util.Util;
 
 /**
  *
  * @author SERGIO-MENDEZ
  */
 public class RegistrationForm extends javax.swing.JFrame {
-    UserServiceManagement userRepository = new UserServiceManagement();
-    User user=null;
+    UserServiceManagement userServiceManagement = new UserServiceManagement();
+    User newUser=null;
+
+
+    
     /**
      * Creates new form RegistrtionForm
      */
     public RegistrationForm() {
+        roundJFrame();
+        // round the form border util does not have the method
+    }
+
+    private void roundJFrame() {
+  
+
+        // Set the window's shape
+        setDefaultCloseOperation(RegistrationForm.EXIT_ON_CLOSE);
+        setSize(800, 900);
+        setLocationRelativeTo(null); // Center the frame
+        setUndecorated(true); // Remove the default window decorations
+
+        // Create a rounded shape
+        Shape roundedShape = new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50);
+        //Apply also a border into the footer frame
+        // Set the shape of the frame
+        setShape(roundedShape);
         initComponents();
+    }
+
+    public boolean emailExist(String email) {
+
+        List<User> userList = userServiceManagement.executeReadAll().stream()
+                .map(user -> (User) user).toList();
+
+        return userList.stream().anyMatch(user -> user.getEmail().equals(email));
     }
 
     /**
@@ -50,6 +86,8 @@ public class RegistrationForm extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         passwordTxt = new javax.swing.JPasswordField();
+        userSuccessLbl = new javax.swing.JLabel();
+        emailErrorLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,16 +109,16 @@ public class RegistrationForm extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(141, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(135, 135, 135))
+                .addGap(123, 123, 123))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -105,17 +143,35 @@ public class RegistrationForm extends javax.swing.JFrame {
         firstNameTxt.setBackground(new java.awt.Color(230, 230, 230));
         firstNameTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         firstNameTxt.setForeground(new java.awt.Color(0, 0, 0));
+        firstNameTxt.setText(" ");
         firstNameTxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        firstNameTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                firstNameTxtActionPerformed(evt);
+            }
+        });
 
         lastNameTxt.setBackground(new java.awt.Color(230, 230, 230));
         lastNameTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lastNameTxt.setForeground(new java.awt.Color(0, 0, 0));
+        lastNameTxt.setText(" ");
         lastNameTxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lastNameTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lastNameTxtActionPerformed(evt);
+            }
+        });
 
         addressTxt.setBackground(new java.awt.Color(230, 230, 230));
         addressTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         addressTxt.setForeground(new java.awt.Color(0, 0, 0));
+        addressTxt.setText(" ");
         addressTxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        addressTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addressTxtActionPerformed(evt);
+            }
+        });
 
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
         jLabel7.setText("First Name");
@@ -123,6 +179,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         emailTxt.setBackground(new java.awt.Color(230, 230, 230));
         emailTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         emailTxt.setForeground(new java.awt.Color(0, 0, 0));
+        emailTxt.setText(" ");
         emailTxt.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         emailTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,6 +190,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         phoneNumberTxt.setBackground(new java.awt.Color(230, 230, 230));
         phoneNumberTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         phoneNumberTxt.setForeground(new java.awt.Color(0, 0, 0));
+        phoneNumberTxt.setText(" ");
         phoneNumberTxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         phoneNumberTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,6 +271,12 @@ public class RegistrationForm extends javax.swing.JFrame {
             }
         });
 
+        userSuccessLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        userSuccessLbl.setForeground(new java.awt.Color(0, 204, 0));
+
+        emailErrorLbl.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        emailErrorLbl.setForeground(new java.awt.Color(255, 51, 51));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -227,39 +291,44 @@ public class RegistrationForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(addressTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(firstNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jLabel7)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(lastNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(emailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(phoneNumberTxt))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(phoneNumberTxt)
-                            .addComponent(passwordTxt))))
+                            .addComponent(emailErrorLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(addressTxt)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(firstNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(6, 6, 6)
+                                            .addComponent(jLabel7)))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(lastNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(userSuccessLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(emailTxt, javax.swing.GroupLayout.Alignment.TRAILING))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(passwordTxt)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(userSuccessLbl)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(firstNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,7 +345,9 @@ public class RegistrationForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(emailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(emailErrorLbl)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(phoneNumberTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -284,7 +355,7 @@ public class RegistrationForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(passwordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -299,9 +370,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -326,24 +395,64 @@ public class RegistrationForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel8MouseClicked
 
+    private void clearFields() {
+        firstNameTxt.setText("   ");
+        lastNameTxt.setText("   ");
+        addressTxt.setText("   ");
+        emailTxt.setText("   ");
+        phoneNumberTxt.setText("   ");
+        passwordTxt.setText("   ");
+        firstNameTxt.setFocusable(true);
+    }
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here:
-        user = new User(
-                firstNameTxt.getText(),
-                lastNameTxt.getText(),
-                phoneNumberTxt.getText(),
-                addressTxt.getText(),
-                emailTxt.getText(),
-                passwordTxt.getText(),
-                "user");
-        
-        userRepository.create(user);
-        System.out.println("usuario creado!");
+        String email = Util.removeSpaces(emailTxt.getText());
+        String firstName = Util.removeSpaces(firstNameTxt.getText());
+        String lastName = Util.removeSpaces(lastNameTxt.getText());
+        String address = Util.removeSpaces(addressTxt.getText());
+        String phoneNumber = Util.removeSpaces(phoneNumberTxt.getText());
+        String password = passwordTxt.getText();
+
+        if(firstName.isEmpty() || lastName.isEmpty() || address.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || password.isEmpty()){
+            userSuccessLbl.setText("Please fill all the fields!");
+            userSuccessLbl.setForeground(Color.red);
+            return;
+        }
+
+        if (!Util.isValidEmail(email)) {
+            emailErrorLbl.setText("Not a valid email!");
+            return;
+        }
+
+        if (emailExist(email)) {
+            emailErrorLbl.setText("Email already exists!");
+            return;
+        }
+
+        User newUser = new User(firstName, lastName, phoneNumber, address, email, password, "user");
+        userServiceManagement.executeCreate(newUser);
+
+        userSuccessLbl.setText("User created successfully!");
+        emailErrorLbl.setText("");
+        clearFields();
+
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void phoneNumberTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneNumberTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_phoneNumberTxtActionPerformed
+
+    private void firstNameTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstNameTxtActionPerformed
+
+    private void addressTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addressTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addressTxtActionPerformed
+
+    private void lastNameTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lastNameTxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,6 +492,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressTxt;
+    private javax.swing.JLabel emailErrorLbl;
     private javax.swing.JTextField emailTxt;
     private javax.swing.JTextField firstNameTxt;
     private javax.swing.JLabel jLabel1;
@@ -402,5 +512,6 @@ public class RegistrationForm extends javax.swing.JFrame {
     private javax.swing.JTextField lastNameTxt;
     private javax.swing.JPasswordField passwordTxt;
     private javax.swing.JTextField phoneNumberTxt;
+    private javax.swing.JLabel userSuccessLbl;
     // End of variables declaration//GEN-END:variables
 }

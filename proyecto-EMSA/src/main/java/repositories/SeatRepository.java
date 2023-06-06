@@ -4,17 +4,19 @@ import connection.ConnectionDBA;
 import model.Seat;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SeatRepository {
     private final String SELECT_ALL_SEATS = "SELECT * FROM Seat";
-
+    private PreparedStatement preparedStatement = null;
+    
     public List<Seat> getSelectAllSeats() {
         List<Seat> seats = new ArrayList<>();
         try (Connection connection = ConnectionDBA.getConnection()) {
-            var preparedStatement = connection.prepareStatement(SELECT_ALL_SEATS);
+            preparedStatement = connection.prepareStatement(SELECT_ALL_SEATS);
             var resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Seat seat = new Seat();
@@ -29,4 +31,5 @@ public class SeatRepository {
             throw new RuntimeException(e);
         }
     }
+    
 }

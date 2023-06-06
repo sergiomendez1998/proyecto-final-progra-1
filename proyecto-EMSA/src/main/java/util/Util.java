@@ -5,6 +5,8 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -53,6 +55,17 @@ public class Util {
 
     public static Date convertStringToDate(String date) {
         return Date.valueOf(date);
+    }
+    
+    public static boolean isValidEmail(String email){
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+    
+    public static String removeSpaces(String text) {
+        return text.replaceAll("\\s", "");
     }
 
 }

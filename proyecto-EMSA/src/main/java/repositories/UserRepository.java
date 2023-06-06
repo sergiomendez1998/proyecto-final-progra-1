@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
-    PreparedStatement preparedStatement = null;
+    
+    private PreparedStatement preparedStatement = null;
     private final String SELECT_ALL_USERS = "select * from users";
     private final String SELECT_EMAIL_AND_PASSWORD = "SELECT * FROM users WHERE email = ? AND password = ?";
     private final String INSERT_USER = "INSERT INTO users (name,last_name,phone_number,address,email,password,rol,active) VALUES (?,?,?,?,?,?,?,?)";

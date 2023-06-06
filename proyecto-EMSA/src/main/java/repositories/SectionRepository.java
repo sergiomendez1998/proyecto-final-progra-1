@@ -1,21 +1,22 @@
 package repositories;
 
 import connection.ConnectionDBA;
-import model.Seat;
 import model.Section;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SectionRepository {
     private final String SELECT_ALL_SECTIONS = "SELECT * FROM Section";
+    private PreparedStatement preparedStatement = null;
 
     public List<Section> getAllSections() {
         List<Section> sectionList = new ArrayList<>();
-        try (Connection connection = ConnectionDBA.getConnection()) {
-            var preparedStatement = connection.prepareStatement(SELECT_ALL_SECTIONS);
+        try ( Connection connection = ConnectionDBA.getConnection()) {
+            preparedStatement = connection.prepareStatement(SELECT_ALL_SECTIONS);
             var resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Section section = new Section();

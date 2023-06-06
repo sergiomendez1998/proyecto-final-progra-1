@@ -20,6 +20,7 @@ public class User {
     private String role;
     private Boolean active;
     private Date createdAt;
+    public static User userLogin = new User();
 
     public User(String name, String lastName, String phoneNumber, String address, String email, String password, String role) {
         this.name = name;
@@ -29,5 +30,8 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+    public void setUserLogin(User user){
+        userLogin = user;
     }
 }

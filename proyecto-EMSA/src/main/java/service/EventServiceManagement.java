@@ -7,25 +7,30 @@ import model.Event;
 import java.util.List;
 
 public class EventServiceManagement implements CrudInterface {
-    EventRepository eventDAO = new EventRepository();
+    EventRepository eventRepository = new EventRepository();
 
     @Override
-    public void create(Object object) {
-        eventDAO.insertEvent((Event) object);
+    public void executeCreate(Object object) {
+        eventRepository.insertEvent((Event) object);
     }
 
     @Override
-    public List<?> read() {
-        return eventDAO.getAllEvents();
+    public List<?> executeReadAll() {
+        return eventRepository.getAllEvents();
     }
 
     @Override
-    public void update(Object object) {
-          eventDAO.updateEvent((Event) object);
+    public void executeUpdate(Object object) {
+          eventRepository.updateEvent((Event) object);
     }
 
     @Override
-    public void delete(int id) {
+    public void executeDelete(int id) {
+      
+    }
 
+    @Override
+    public void executeRead(int id) {
+        
     }
 }

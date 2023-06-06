@@ -6,25 +6,30 @@ import repositories.SectionRepository;
 import java.util.List;
 
 public class SectionServiceManagement implements CrudInterface {
-    SectionRepository section = new SectionRepository();
+    SectionRepository sectionRepository = new SectionRepository();
 
     @Override
-    public void create(Object object) {
-
+    public void executeCreate(Object object) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public List<?> read() {
-        return section.getAllSections();
+    public List<?> executeReadAll() {
+        return sectionRepository.getAllSections();
     }
 
     @Override
-    public void update(Object object) {
-
+    public void executeUpdate(Object object) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void delete(int id) {
+    public void executeDelete(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
+    @Override
+    public void executeRead(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

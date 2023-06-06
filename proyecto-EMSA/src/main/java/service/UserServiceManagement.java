@@ -8,29 +8,34 @@ import java.util.List;
 
 public class UserServiceManagement implements CrudInterface {
     
-    UserRepository userService = new UserRepository();
+    UserRepository userRepository = new UserRepository();
     
     public User validateLoginUser(String email, String password) {
-        return userService.getUserByEmailAndPassword(email, password);
+        return userRepository.getUserByEmailAndPassword(email, password);
     }
 
     @Override
-    public void create(Object object) {
-           userService.insertUser((User) object);
+    public void executeCreate(Object object) {
+           userRepository.insertUser((User) object);
     }
 
     @Override
-    public List<?> read() {
-        return userService.getAllUsers();
+    public List<?> executeReadAll() {
+        return userRepository.getAllUsers();
     }
 
     @Override
-    public void update(Object object) {
-           userService.updateUser((User) object);
+    public void executeUpdate(Object object) {
+           userRepository.updateUser((User) object);
     }
 
     @Override
-    public void delete(int id) {
-        userService.deleteUser(id);
+    public void executeDelete(int id) {
+        userRepository.deleteUser(id);
+    }
+
+    @Override
+    public void executeRead(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
