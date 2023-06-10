@@ -1,5 +1,6 @@
 package util;
 
+import java.awt.BorderLayout;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
@@ -9,6 +10,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class Util {
     private static final SimpleDateFormat _yyyyMMdd = new SimpleDateFormat("yyyy-MM-dd");
@@ -66,6 +70,27 @@ public class Util {
     
     public static String removeSpaces(String text) {
         return text.replaceAll("\\s", "");
+    }
+    
+    public static void changePanel(JPanel panelName, JPanel content) {
+        panelName.setSize(920, 470);
+        panelName.setLocation(60, 0);
+
+        content.removeAll();
+        content.add(panelName, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+    }
+    
+        public static  void cleanTable(JTable tabla) {
+        try {
+            DefaultTableModel tbl = (DefaultTableModel) tabla.getModel();
+            int a = tabla.getRowCount() - 1;
+            for (int i = a; i >= 0; i++) {
+                tbl.removeRow(tabla.getRowCount() - 1);
+            }
+        } catch (Exception e) {
+        }
     }
 
 }

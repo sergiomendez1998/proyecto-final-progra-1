@@ -24,20 +24,22 @@ import model.User;
  * @author SERGIO-MENDEZ
  */
 public final class EventViewAdminstrationPanel extends javax.swing.JPanel {
-     EventServiceManagement eventServiceManagement = new EventServiceManagement();
-     String description;
-     List<Event> eventList = new ArrayList<>();
-     Event newEvent = new Event();
+     EventServiceManagement eventServiceManagement;
+     List<Event> eventList;
+     Event newEvent;
      DefaultTableModel model;
     /**
      * Creates new form EventViewAdminstrationPanel
      */
     public EventViewAdminstrationPanel() {
         initComponents();
-
+        newEvent = new Event();
+        eventList = new ArrayList<>();
+        eventServiceManagement = new EventServiceManagement();
         System.out.println("user login"+User.userLogin.getName());
         getEventList();
         displayDataIntoTable(eventTableData);
+
 
     }
     
@@ -64,17 +66,6 @@ public final class EventViewAdminstrationPanel extends javax.swing.JPanel {
             eventList.add(event);
         }
         eventList.sort(Comparator.comparing(Event::getEventDate));
-    }
-
-    public void cleanTable(JTable tabla) {
-        try {
-            DefaultTableModel tbl = (DefaultTableModel) tabla.getModel();
-            int a = tabla.getRowCount() - 1;
-            for (int i = a; i >= 0; i++) {
-                tbl.removeRow(tabla.getRowCount() - 1);
-            }
-        } catch (Exception e) {
-        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -385,7 +376,7 @@ public final class EventViewAdminstrationPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("FILTRAR");
+        jLabel2.setText("FILTER");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -484,7 +475,7 @@ public final class EventViewAdminstrationPanel extends javax.swing.JPanel {
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -517,7 +508,7 @@ public final class EventViewAdminstrationPanel extends javax.swing.JPanel {
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -564,7 +555,7 @@ public final class EventViewAdminstrationPanel extends javax.swing.JPanel {
         eventMessageStatus.setForeground(new java.awt.Color(0, 255, 0));
         eventMessageStatus.setText("Event created successfully");
         getEventList();
-        cleanTable(eventTableData);
+        Util.cleanTable(eventTableData);
         displayDataIntoTable(eventTableData);
     }//GEN-LAST:event_jLabel3MouseClicked
 
@@ -594,7 +585,7 @@ public final class EventViewAdminstrationPanel extends javax.swing.JPanel {
             eventMessageStatus.setForeground(new java.awt.Color(0, 255, 0));
             eventMessageStatus.setText("Event updated successfully");
             getEventList();
-            cleanTable(eventTableData);
+            Util.cleanTable(eventTableData);
             displayDataIntoTable(eventTableData);
 
         }
@@ -609,7 +600,7 @@ public final class EventViewAdminstrationPanel extends javax.swing.JPanel {
                 .collect(Collectors.toList());
 
         System.out.println("cleaning table");
-        cleanTable(eventTableData);
+        Util.cleanTable(eventTableData);
         displayDataIntoTable(eventTableData);
 
     }//GEN-LAST:event_jLabel2MouseClicked
@@ -617,7 +608,7 @@ public final class EventViewAdminstrationPanel extends javax.swing.JPanel {
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         // TODO add your handling code here:
         getEventList();
-        cleanTable(eventTableData);
+        Util.cleanTable(eventTableData);
         displayDataIntoTable(eventTableData);
     }//GEN-LAST:event_jLabel12MouseClicked
 
