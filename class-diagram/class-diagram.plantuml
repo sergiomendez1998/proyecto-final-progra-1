@@ -1,0 +1,367 @@
+@startuml
+
+package EMSA_PROJECT{
+    package connection{
+        class ConnectionDBA{
+            -String url
+            -String user
+            -String password
+            -Connection database
+            -String port 
+            -String serverName
+            {static} Connection getConnection()
+           
+        }
+    }
+    package service{
+      class EventServiceManagement{
+        -EventRepository eventRepository
+        +void executeCreate(Event event)
+        +void executeUpdate(Event event)
+        +void executeDelete(int id)
+        +List<Event> executeReadAll()
+        +void executeRead(int id)
+      }
+      class TicketServiceManagement{
+        -TicketRepository ticketRepository
+        +void executeCreate(Ticket ticket)
+        +void executeUpdate(Ticket ticket)
+        +void executeDelete(int id)
+        +List<Ticket> executeReadAll()
+        +void executeRead(int id)
+        +Ticket executeReadByNoTicket(String noTicket)
+        +void executeReadByEvent(int idEvent)
+      }
+
+      class UserServiceManagement{
+        -UserRepository userRepository
+        +void executeCreate(User user)
+        +void executeUpdate(User user)
+        +void executeDelete(int id)
+        +List<User> executeReadAll()
+        +void executeRead(int id)
+        +User validateLoginUser(String email, String password)
+        +List<User> getUsersFromTxtFile(String fileName)
+      }
+
+      class SectionRepositoryServiceManagement{        
+            -SectionRepository sectionRepository
+            +void executeCreate(Section section)
+            +void executeUpdate(Section section)
+            +void executeDelete(int id)
+            +List<Section> executeReadAll()
+            +void executeRead(int id)
+        }
+
+        class SeatRepositoryServiceManagement
+        {
+            -SeatRepository seatRepository
+            +void executeCreate(Seat seat)
+            +void executeUpdate(Seat seat)
+            +void executeDelete(int id)
+            +List<Seat> executeReadAll()
+            +void executeRead(int id)
+        }
+
+        class BuyerRepositoryServiceManagement
+        {
+            -BuyerRepository buyerRepository
+            +void executeCreate(Buyer buyer)
+            +void executeUpdate(Buyer buyer)
+            +void executeDelete(int id)
+            +List<Buyer> executeReadAll()
+            +void executeRead(int id)
+        }
+
+
+    }
+    package model{
+      
+        class Buyer{
+            -int idBuyer
+            -int idUser
+
+            +int getIdBuyer()
+            +void setIdBuyer(int idBuyer)
+            +int getIdUser()
+            +void setIdUser(int idUser)
+        }
+
+        class Event{
+            -int idEvent
+            -String name
+            -String description
+            -Date eventDate
+            -Time startTime
+            -Time endTime
+            -String eventLocation
+            -String status 
+
+            +int getIdEvent()
+            +void setIdEvent(int idEvent)
+            +String getName()
+            +void setName(String name)
+            +String getDescription()
+            +void setDescription(String description)
+            +Date getEventDate()
+            +void setEventDate(Date eventDate)
+            +Time getStartTime()
+            +void setStartTime(Time startTime)
+            +Time getEndTime()
+            +void setEndTime(Time endTime)
+            +String getEventLocation()
+            +void setEventLocation(String eventLocation)
+            +String getStatus()
+            +void setStatus(String status)
+        }
+
+        class Seat{
+            -int idSeat
+            -int idRow
+            -String number
+
+            +int getIdSeat()
+            +void setIdSeat(int idSeat)
+            +int getIdRow()
+            +void setIdRow(int idRow)
+            +String getNumber()
+            +void setNumber(String number)
+        }
+        class Section{
+            -int idSection
+            -String name
+            -Double price 
+            -String side
+
+            +int getIdSection()
+            +void setIdSection(int idSection)
+            +String getName()
+            +void setName(String name)
+            +Double getPrice()
+            +void setPrice(Double price)
+            +String getSide()
+            +void setSide(String side)
+        }
+        class Ticket{
+            -int idTicket
+            -int idBuyer
+            -int idEvent
+            -int idSeat
+            -int idSection
+            -String noTicket
+            -Date PurchaseDate
+
+            +int getIdTicket()
+            +void setIdTicket(int idTicket)
+            +int getIdBuyer()
+            +void setIdBuyer(int idBuyer)
+            +int getIdEvent()
+            +void setIdEvent(int idEvent)
+            +int getIdSeat()
+            +void setIdSeat(int idSeat)
+            +int getIdSection()
+            +void setIdSection(int idSection)
+            +String getNoTicket()
+            +void setNoTicket(String noTicket)
+            +Date getPurchaseDate()
+            +void setPurchaseDate(Date purchaseDate)
+        }
+
+        class User{
+            -int idUser
+            -String name
+            -String lastName
+            -String email
+            -String password
+            -String phoneNumber
+            -String address
+            -String role
+            -Boolean Active 
+            -Date createdAt
+            {statoc} User userLogin
+
+            +int getIdUser()
+            +void setIdUser(int idUser)
+            +String getName()
+            +void setName(String name)
+            +String getLastName()
+            +void setLastName(String lastName)
+            +String getEmail()
+            +void setEmail(String email)
+            +String getPassword()
+            +void setPassword(String password)
+            +String getPhoneNumber()
+            +void setPhoneNumber(String phoneNumber)
+            +String getAddress()
+            +void setAddress(String address)
+            +String getRole()
+            +void setRole(String role)
+            +Boolean getActive()
+            +void setActive(Boolean active)
+            +Date getCreatedAt()
+            +void setCreatedAt(Date createdAt)
+            void setUserLogin(User userLogin)            
+        }
+    }
+    package repositories{
+      class BuyerRepository{
+        -PreparedStatement preparedStatement
+        -String insert_buyer
+
+        +void insertBuyer(Buyer buyer)
+      }
+      class EventRepository{
+        -PreparedStatement preparedStatement
+        -String insert_event
+        -String update_event
+        -String select_all_events
+
+        +void insertEvent(Event event)
+        +void updateEvent(Event event)
+        +List<Event> selectAllEvents()
+
+      }
+
+      class SeatRepository{
+        -PreparedStatement preparedStatement
+        -String select_all_seats
+        
+        +List<Seat> selectAllSeats()
+      }
+
+      class SectionRepository{
+        -PreparedStatement preparedStatement
+        -String select_all_sections
+
+        +List<Section> selectAllSections()
+      }
+
+      class UserRepository{
+        -PreparedStatement preparedStatement
+        -String insert_user
+        -String update_user
+        -String select_all_users
+        -String select_user_login
+
+        +void insertUser(User user)
+        +void updateUser(User user)
+        +List<User> selectAllUsers()
+        +User selectUserLogin(String email, String password)
+      }
+      class TicketRepository{
+        -PreparedStatement preparedStatement
+        -String insert_ticket
+        -String select_all_tickets
+        -String select_ticket_by_noTicket
+
+        +void insertTicket(Ticket ticket)
+        +List<Ticket> selectAllTickets()
+        +Ticket selectTicketByNoTicket(String noTicket)
+      }
+    }
+    package interfaces{
+            interface CrudInterface<T>{
+            void ExecuteCreate(T object)
+            void executeUpdate(T object)
+            void executeDelete(int id)
+            List<?> executeReadAll()
+            void executeRead(int id)
+        }
+    }
+    package util{
+    class Util{
+        {static} sql.Date convertDateToSqlDate(Date date)
+        {static} String generateRandomTicket()
+        {static} Time convertStringToTime(String time)
+        {static} Date convertStringToDate(String date)
+        {static} Boolean isValidEmail(String email)
+       }
+    enum EventStatus{
+        ACTIVE
+        PUBLISHED
+        UNPUBLISHED
+        DEFEATED
+    }
+    enum SectioType{
+        VIP_MG
+        VIP_RIGHT
+        VIP_LEFT
+        VIP_CENTER
+        PLATEA_A_RIGHT
+        PLATEA_A_LEFT
+        PLATEA_A_CENTER
+        PLATEA_B_RIGHT
+        PLATEA_B_LEFT
+        PLATEA_B_CENTER
+    }
+    }
+
+
+    package views{
+        class adminView{}
+        class userView{}
+        class LoginView{}
+    }
+
+' all services implement CrudInterface
+EventServiceManagement ..|> CrudInterface
+TicketServiceManagement ..|> CrudInterface
+UserServiceManagement ..|> CrudInterface
+SectionRepositoryServiceManagement ..|> CrudInterface
+SeatRepositoryServiceManagement ..|> CrudInterface
+BuyerRepositoryServiceManagement ..|> CrudInterface
+
+' all repositories use connection
+EventRepository .up.o ConnectionDBA
+TicketRepository .up.o ConnectionDBA
+UserRepository .up.o ConnectionDBA
+SectionRepository .up.o ConnectionDBA
+SeatRepository .up.o ConnectionDBA
+BuyerRepository .up.o ConnectionDBA
+
+
+'BuyerRepository has aggregation with Buyer
+Buyer *-left- BuyerRepository
+Event *-left- EventRepository
+Ticket *-left- TicketRepository
+User *-left- UserRepository
+Section *-left- SectionRepository
+Seat *-left- SeatRepository
+
+Buyer o-- BuyerRepositoryServiceManagement
+Event o-- EventServiceManagement
+Ticket o-- TicketServiceManagement
+User o-- UserServiceManagement
+Section o-- SectionRepositoryServiceManagement
+Seat o-- SeatRepositoryServiceManagement
+
+BuyerRepositoryServiceManagement -down-o BuyerRepository
+EventServiceManagement -down-o EventRepository
+TicketServiceManagement -down-o TicketRepository
+UserServiceManagement -down-o UserRepository
+SectionRepositoryServiceManagement -down-o SectionRepository
+SeatRepositoryServiceManagement -down-o SeatRepository
+
+LoginView .left.> UserServiceManagement
+LoginView .left.> User
+adminView .left.> EventServiceManagement
+adminView .left.> Event
+adminView .left.> TicketServiceManagement
+adminView .left.> Ticket
+adminView .left.> UserServiceManagement
+adminView .left.> User
+
+userView .right.> EventServiceManagement
+userView .right.> Event
+userView .right.> TicketServiceManagement
+userView .right.> Ticket
+userView .right.> User
+
+adminView --> Util
+userView --> Util
+userView -->SectioType
+adminView -->EventStatus
+LoginView --> Util
+
+}
+@enduml
