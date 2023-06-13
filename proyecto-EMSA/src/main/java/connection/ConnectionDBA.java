@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 
 
 public class ConnectionDBA {
-    private static final String DATABASE="postgres";
+    private static final String DATABASE="progra_final_project";
     private static final String SERVER_NAME="pogra-proyecto.postgres.database.azure.com";
     private static final String PORT ="5432";
     private static final String URL="jdbc:postgresql://"+SERVER_NAME+":"+PORT+"/"+DATABASE;

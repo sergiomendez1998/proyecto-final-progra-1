@@ -10,8 +10,8 @@ public enum SectionType {
     PLATEA_A_LEFT("PLATEA A  LEFT"),
     PLATEA_A_CENTER("PLATEA A CENTER"),
     PLATEA_B_CENTER("PLATEA B CENTER"),
-    PLATEA_RIGHT("PLATEA B RIGHT"),
-    PLATEA_LEFT("PLATEA B LEFT");
+    PLATEA_B_RIGHT("PLATEA B RIGHT"),
+    PLATEA_B_LEFT("PLATEA B LEFT");
 
     private String displayName;
 

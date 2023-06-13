@@ -52,7 +52,10 @@ public final class LoginForm extends javax.swing.JFrame {
                 adminForm.setVisible(true);
                 this.dispose();
             } else {
-                System.out.println("welcome User");
+                user.setUserLogin(user);
+              UserViewForm userView = new UserViewForm();
+              userView.setVisible(true);
+              this.dispose();
             }
         } else {
             invalidCredentialLbl.setText("Invalid Credentials, please try again!");

@@ -14,7 +14,7 @@ public class UserRepository {
     
     private PreparedStatement preparedStatement = null;
     private final String SELECT_ALL_USERS = "select * from users";
-    private final String SELECT_EMAIL_AND_PASSWORD = "SELECT * FROM users WHERE email = ? AND password = ?";
+    private final String SELECT_USER_LOGIN= "SELECT * FROM users WHERE email = ? AND password = ?";
     private final String INSERT_USER = "INSERT INTO users (name,last_name,phone_number,address,email,password,rol,active) VALUES (?,?,?,?,?,?,?,?)";
     private final String UPDATE_USER = "UPDATE users SET name =?,last_name =?,phone_number =?,address =?,email =?,password =?,rol =?,active =? WHERE id =?";
     private final String DELETE_USER = "DELETE FROM users WHERE id =?";
@@ -22,7 +22,7 @@ public class UserRepository {
     public User getUserByEmailAndPassword(String email, String password) {
        User user = new User();
         try(Connection connection = ConnectionDBA.getConnection()){
-            preparedStatement = connection.prepareStatement(SELECT_EMAIL_AND_PASSWORD);
+            preparedStatement = connection.prepareStatement(SELECT_USER_LOGIN);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
             var resultSet = preparedStatement.executeQuery();
